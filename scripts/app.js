@@ -58,9 +58,18 @@ cityForm.addEventListener("submit", (e) => {
   // Get the .city from input name, that is .city
   const city = cityForm.city.value.trim();
   cityForm.reset();
+  // set local storage
+  localStorage.setItem("city", city);
 
   // update the ui with the new city
   updateCity(city)
     .then((data) => updateUI(data))
     .catch((err) => console.log(err));
 });
+
+// Update the page IF there is any previous search from before in local storage
+if (localStorage.getItem("city")) {
+  updateCity(localStorage.getItem("city"))
+    .then((data) => updateUI(data))
+    .catch((err) => console.log(err));
+}
